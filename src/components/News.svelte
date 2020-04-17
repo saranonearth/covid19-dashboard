@@ -3,21 +3,22 @@
   import { onMount } from "svelte";
 
   export let locationData;
-  let news = null;
+  let news = JSON.parse(localStorage.getItem("d"));
   let showMore = false;
-  let showNews = localStorage.getItem("d").slice(1, 4);
+  let showNews = JSON.parse(localStorage.getItem("d")).slice(1, 4);
   onMount(async () => {
-    const res = await axios.get(
-      `https://api.smartable.ai/coronavirus/news/${locationData.countryCode}`,
-      {
-        headers: {
-          "Subscription-Key": "8018cc99a02b46ec87d78cefad4fb250"
-        }
-      }
-    );
-    news = res.data.news;
-    localStorage.setItem("d", JSON.stringify(res.data.news));
-    showNews = news.slice(1, 4);
+    console.log("NEWS", JSON.parse(localStorage.getItem("d")).slice(1, 4));
+    // const res = await axios.get(
+    //   `https://api.smartable.ai/coronavirus/news/${locationData.countryCode}`,
+    //   {
+    //     headers: {
+    //       "Subscription-Key": "8018cc99a02b46ec87d78cefad4fb250"
+    //     }
+    //   }
+    // );
+    // news = res.data.news;
+    // localStorage.setItem("d", JSON.stringify(res.data.news));
+    // showNews = news.slice(1, 4);
   });
 
   const handleMore = () => {
@@ -61,21 +62,36 @@
   .item {
     margin-top: 13px;
     font-weight: 500;
-    margin-bottom: 200px;
+    margin-bottom: 110px;
   }
   .item:hover {
     cursor: pointer;
     opacity: 0.5;
   }
+  .news-cont {
+    margin-top: 20px;
+    margin-left: 10px;
+  }
+
+  @media (max-width: 640px) {
+    .mb-c {
+      width: 280px;
+    }
+    .news-img {
+      width: 280px;
+      height: auto;
+      border-radius: 3px;
+    }
+  }
 </style>
 
-<main>
+<main class="news-cont">
   <h2>News</h2>
   <div class="main-cont">
     {#if news}
       {#each showNews as n, i}
         {#if n.images}
-          <div class="card">
+          <div class="card mb-c">
             <div class="flex">
               <div>
                 <img class="news-img" src={n.images[0].url} alt={n.title} />
