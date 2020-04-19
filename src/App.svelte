@@ -3,21 +3,29 @@
   import axios from "../node_modules/axios";
   import MainStat from "./components/MainStat.svelte";
   import News from "./components/News.svelte";
+  import publicIp from "public-ip";
+
   let locationData = null;
   let covidSummary = null;
   let stateStat = null;
   let stateAll = null;
   onMount(async () => {
-    const res = await axios.get("http://ip-api.com/json/");
+    const ip = await publicIp.v4();
+    const res = await axios.get(`https://ipapi.co/${ip}/json/`);
     const covidRes = await axios.get("https://api.covid19api.com/summary");
     const stateRes = await axios.get("https://api.covid19india.org/data.json");
     const stateAllRes = await axios.get(
       "https://api.covid19india.org/state_district_wise.json"
     );
+    console.log("locations", res.data);
     stateStat = stateRes.data;
     covidSummary = covidRes.data;
     stateAll = Object.entries(stateAllRes.data);
-    locationData = res.data;
+    locationData = {
+      countryCode: res.data.country,
+      regionName: res.data.region,
+      country: res.data.country_name
+    };
     console.log(stateAll);
     console.log(locationData);
   });
