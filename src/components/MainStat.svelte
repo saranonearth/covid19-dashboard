@@ -97,6 +97,7 @@
     font-size: 1.7em;
     padding: 15px;
     margin-top: 20px;
+    background: white;
     border-radius: 8px;
     width: 715px;
     height: 40px;
@@ -147,7 +148,9 @@
   .textb {
     font-weight: 600;
   }
-
+  .row {
+    color: rgb(180, 180, 180);
+  }
   @media (max-width: 640px) {
     .search {
       width: 290px;

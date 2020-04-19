@@ -1,21 +1,12 @@
 <script>
   import { onMount } from "svelte";
-  import axios from "axios";
+  import axios from "../node_modules/axios";
   import MainStat from "./components/MainStat.svelte";
   import News from "./components/News.svelte";
-  let locationData = localStorage.getItem("a")
-    ? JSON.parse(localStorage.getItem("a"))
-    : null;
-  let covidSummary = localStorage.getItem("b")
-    ? JSON.parse(localStorage.getItem("b"))
-    : null;
-  let stateStat = localStorage.getItem("c")
-    ? JSON.parse(localStorage.getItem("c"))
-    : null;
-
-  let stateAll = localStorage.getItem("e")
-    ? JSON.parse(localStorage.getItem("e"))
-    : null;
+  let locationData = null;
+  let covidSummary = null;
+  let stateStat = null;
+  let stateAll = null;
   onMount(async () => {
     const res = await axios.get("http://ip-api.com/json/");
     const covidRes = await axios.get("https://api.covid19api.com/summary");
@@ -27,10 +18,6 @@
     covidSummary = covidRes.data;
     stateAll = Object.entries(stateAllRes.data);
     locationData = res.data;
-    localStorage.setItem("a", JSON.stringify(res.data));
-    localStorage.setItem("b", JSON.stringify(covidRes.data));
-    localStorage.setItem("c", JSON.stringify(stateRes.data));
-    localStorage.setItem("e", JSON.stringify(Object.entries(stateAllRes.data)));
     console.log(stateAll);
     console.log(locationData);
   });

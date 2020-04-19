@@ -3,22 +3,21 @@
   import { onMount } from "svelte";
 
   export let locationData;
-  let news = JSON.parse(localStorage.getItem("d"));
+  let news = null;
   let showMore = false;
-  let showNews = JSON.parse(localStorage.getItem("d")).slice(1, 4);
+  let showNews = null;
   onMount(async () => {
-    console.log("NEWS", JSON.parse(localStorage.getItem("d")).slice(1, 4));
-    // const res = await axios.get(
-    //   `https://api.smartable.ai/coronavirus/news/${locationData.countryCode}`,
-    //   {
-    //     headers: {
-    //       "Subscription-Key": "8018cc99a02b46ec87d78cefad4fb250"
-    //     }
-    //   }
-    // );
-    // news = res.data.news;
-    // localStorage.setItem("d", JSON.stringify(res.data.news));
-    // showNews = news.slice(1, 4);
+    const res = await axios.get(
+      `https://api.smartable.ai/coronavirus/news/${locationData.countryCode}`,
+      {
+        headers: {
+          "Subscription-Key": "8018cc99a02b46ec87d78cefad4fb250"
+        }
+      }
+    );
+    news = res.data.news;
+    console.log("NEWS", res.data.news);
+    showNews = news.slice(1, 4);
   });
 
   const handleMore = () => {

@@ -5,4 +5,10 @@
 
 body {
     font-family: 'Manrope', sans-serif;
+    background: rgb(250, 250, 250);
+}
+
+.card {
+    background: white;
+    margin-top: 10px;
 }
