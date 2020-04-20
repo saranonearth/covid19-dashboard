@@ -7,21 +7,39 @@
   let stateWiseData = null;
   let searchQuery = "";
   let searchData = null;
-  console.log(stateStat);
+  let state = null;
+  console.log("STATE STAT", stateStat);
   let country = covidSummary.Countries.filter(
     e => e.Country == locationData.country
   )[0];
   let global = covidSummary.Global;
-  let state = stateStat.statewise.filter(
-    e => e.state === locationData.regionName
-  )[0];
 
-  console.log(locationData);
-  console.log(covidSummary);
-  console.log(global);
+  if (stateStat.statewise.filter(e => e.state === locationData.regionName)[0]) {
+    state = stateStat.statewise.filter(
+      e => e.state === locationData.regionName
+    )[0];
+  } else {
+    state = null;
+  }
+
+  console.log("LOCATION DATA", locationData);
+  console.log("COVID SUMMARY", covidSummary);
+  console.log("GLOBAL", global);
+
+  let here = locationData.regionName;
+  console.log("HERE", here);
+
+  if (
+    stateAll.find(e => e[0].toLowerCase().trim() === here.toLowerCase().trim())
+  ) {
+    stateWiseData = stateAll.find(
+      e => e[0].toLowerCase().trim() === here.toLowerCase().trim()
+    );
+  }
+
+  console.log("STATEWISE", stateWiseData);
 
   const handleSubmit = () => {
-    console.log(searchQuery);
     const sData = covidSummary.Countries.filter(e => {
       if (e.Country.toLowerCase() === searchQuery.toLowerCase()) {
         return e.Country.toLowerCase() === searchQuery.toLowerCase();
@@ -38,15 +56,8 @@
       searchData = null;
     }
 
-    console.log(searchData);
     searchQuery = "";
   };
-
-  let here = locationData.regionName;
-
-  stateWiseData = stateAll.find(e => e[0].toLowerCase() === here.toLowerCase());
-
-  console.log(stateWiseData);
 </script>
 
 <style>
@@ -153,19 +164,31 @@
   }
   @media (max-width: 640px) {
     .search {
-      width: 290px;
+      width: 260px;
+      margin-left: -5px;
     }
     .card {
       width: 280px;
     }
+    input {
+      width: 200px !important;
+      font-size: 0.8em !important;
+    }
     .search-bar {
       width: 250px;
+      font-size: 1em;
     }
     .cont-tab {
       width: 90%;
     }
     .m {
       text-align: right;
+    }
+    .search-data {
+      margin-left: -10px;
+    }
+    .main-cont {
+      margin-left: -10px;
     }
   }
 </style>
@@ -192,12 +215,16 @@
     </div>
     <div class="card">
       <p class="text-head">{locationData.regionName}</p>
-      <p>Total Cases:</p>
-      <p class="grey c-stat">{state.confirmed}</p>
-      <p class="head">Deaths</p>
-      <p class="red c-stat">{state.deaths}</p>
-      <p class="head">Recovered</p>
-      <p class="green c-stat">{state.recovered}</p>
+      {#if state}
+        <p>Total Cases:</p>
+        <p class="grey c-stat">{state.confirmed}</p>
+        <p class="head">Deaths</p>
+        <p class="red c-stat">{state.deaths}</p>
+        <p class="head">Recovered</p>
+        <p class="green c-stat">{state.recovered}</p>
+      {:else}
+        <p>No data found.</p>
+      {/if}
     </div>
 
   </div>
@@ -217,7 +244,7 @@
       </form>
     </div>
   </div>
-  <div class="search-data">
+  <div class="search-data main-cont">
     {#if searchData}
       <h2 class="ml-1 mb-d">Similar Results</h2>
       {#each searchData as c}
@@ -247,7 +274,7 @@
     {/if}
 
   </div>
-  <div class="in-reg">
+  <div class="in-reg main-cont">
     <h2 class="ml-1">In {locationData.regionName}</h2>
     <div class="card in-reg stretch">
       <div class="cont-tab">
@@ -261,18 +288,24 @@
           </div>
         </div>
       </div>
-      {#each Object.entries(stateWiseData[1].districtData) as a}
-        <div class="cont-tab">
-          <div class="flex row">
-            <div class="bo">
-              <p>{a[0]}</p>
-            </div>
-            <div class="so m">
-              <p>{a[1].confirmed}</p>
+      {#if stateWiseData}
+        {#each Object.entries(stateWiseData[1].districtData) as a}
+          <div class="cont-tab">
+            <div class="flex row">
+              <div class="bo">
+                <p>{a[0]}</p>
+              </div>
+              <div class="so m">
+                <p>{a[1].confirmed}</p>
+              </div>
             </div>
           </div>
-        </div>
-      {/each}
+        {/each}
+      {:else}
+        <center>
+          <p>No data found</p>
+        </center>
+      {/if}
     </div>
   </div>
 </main>

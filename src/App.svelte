@@ -17,7 +17,7 @@
     const stateAllRes = await axios.get(
       "https://api.covid19india.org/state_district_wise.json"
     );
-    console.log("locations", res.data);
+
     stateStat = stateRes.data;
     covidSummary = covidRes.data;
     stateAll = Object.entries(stateAllRes.data);
@@ -26,8 +26,10 @@
       regionName: res.data.region,
       country: res.data.country_name
     };
-    console.log(stateAll);
-    console.log(locationData);
+    console.log("A", stateAll);
+    console.log("B", locationData);
+    console.log("C", covidSummary);
+    console.log("D", stateStat);
   });
 </script>
 
@@ -49,10 +51,49 @@
     margin-top: -20px;
     margin-left: 6px;
   }
+  .footer {
+    margin-top: 50px;
+    text-align: center;
+    padding: 20px;
+  }
+  .icon {
+    font-size: 1.3em !important;
+    transition: 0.2s;
+  }
+  .icon:hover {
+    color: rgb(83, 83, 83);
+    cursor: pointer;
+  }
 
+  .loading {
+    height: 0;
+    width: 0;
+    padding: 15px;
+    border: 6px solid #ccc;
+    border-right-color: #888;
+    border-radius: 22px;
+    -webkit-animation: rotate 1s infinite linear;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+  }
+  a {
+    color: rgb(68, 68, 68);
+  }
+  @-webkit-keyframes rotate {
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }
   @media (max-width: 640px) {
     .container {
       width: 90%;
+    }
+    .title {
+      font-size: 3em;
+    }
+    .sub1 {
+      font-size: 1.8em;
     }
   }
 </style>
@@ -63,13 +104,25 @@
     <h1 class="title">COVID-19</h1>
     <p class="sub1">Dashboard</p>
 
-  </div>
+    {#if locationData && covidSummary && stateStat && stateAll}
+      <MainStat {locationData} {covidSummary} {stateStat} {stateAll} />
+      <!-- <News {locationData} /> -->
+      <div class="footer">
+        <div>
 
-  {#if locationData && covidSummary && stateStat && stateAll}
-    <MainStat {locationData} {covidSummary} {stateStat} {stateAll} />
-    <News {locationData} />
-  {:else}
-    <p>Loading..</p>
-  {/if}
+          <a
+            class="icon"
+            href="https://github.com/saranonearth/covid19-dashboard">
+            <i class="fab icon fa-github" />
+          </a>
+
+        </div>
+
+      </div>
+    {:else}
+      <div class="loading" />
+    {/if}
+
+  </div>
 
 </main>
