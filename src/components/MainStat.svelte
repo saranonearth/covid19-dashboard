@@ -8,6 +8,8 @@
   let searchQuery = "";
   let searchData = null;
   let state = null;
+  let stateName = locationData.regionName;
+  console.log("stateAll", stateAll);
   console.log("STATE STAT", stateStat);
   let country = covidSummary.Countries.filter(
     e => e.Country == locationData.country
@@ -57,6 +59,12 @@
     }
 
     searchQuery = "";
+  };
+
+  const handleTagClick = i => {
+    const curState = stateAll[i];
+    stateName = curState[0];
+    stateWiseData = curState;
   };
 </script>
 
@@ -132,7 +140,7 @@
     width: 50%;
   }
   .stretch {
-    width: 715px;
+    width: 700px;
   }
   .search-data {
     margin-top: 15px;
@@ -162,6 +170,25 @@
   .row {
     color: rgb(180, 180, 180);
   }
+  .tags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    color: white;
+    background: rgb(31, 30, 30);
+    padding: 8px;
+    margin-right: 5px;
+    margin-top: 5px;
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
+  }
+  .tag:hover {
+    cursor: pointer;
+    opacity: 0.9;
+  }
   @media (max-width: 640px) {
     .search {
       width: 260px;
@@ -173,6 +200,11 @@
     input {
       width: 200px !important;
       font-size: 0.8em !important;
+    }
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
     }
     .search-bar {
       width: 250px;
@@ -274,8 +306,19 @@
     {/if}
 
   </div>
+  <div class="main-cont">
+    <div class="tags">
+      {#if stateWiseData}
+        {#each stateAll as state, i}
+          <div class="tag" on:click={() => handleTagClick(i)}>
+            <p>{state[0]}</p>
+          </div>
+        {/each}
+      {/if}
+    </div>
+  </div>
   <div class="in-reg main-cont">
-    <h2 class="ml-1">In {locationData.regionName}</h2>
+    <h2 class="ml-1">In {stateName}</h2>
     <div class="card in-reg stretch">
       <div class="cont-tab">
 

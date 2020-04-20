@@ -66,6 +66,7 @@
   }
 
   .loading {
+    margin-top: 20px;
     height: 0;
     width: 0;
     padding: 15px;
