@@ -1,4 +1,6 @@
 <script>
+  import Graphs from "./Graphs.svelte";
+
   export let locationData;
   export let covidSummary;
   export let stateStat;
@@ -8,9 +10,10 @@
   let searchQuery = "";
   let searchData = null;
   let state = null;
+  let countryName = locationData.country;
   let stateName = locationData.regionName;
-  console.log("stateAll", stateAll);
-  console.log("STATE STAT", stateStat);
+  // console.log("stateAll", stateAll);
+  // console.log("STATE STAT", stateStat);
   let country = covidSummary.Countries.filter(
     e => e.Country == locationData.country
   )[0];
@@ -24,12 +27,12 @@
     state = null;
   }
 
-  console.log("LOCATION DATA", locationData);
-  console.log("COVID SUMMARY", covidSummary);
-  console.log("GLOBAL", global);
+  // console.log("LOCATION DATA", locationData);
+  // console.log("COVID SUMMARY", covidSummary);
+  // console.log("GLOBAL", global);
 
   let here = locationData.regionName;
-  console.log("HERE", here);
+  // console.log("HERE", here);
 
   if (
     stateAll.find(e => e[0].toLowerCase().trim() === here.toLowerCase().trim())
@@ -39,7 +42,7 @@
     );
   }
 
-  console.log("STATEWISE", stateWiseData);
+  // console.log("STATEWISE", stateWiseData);
 
   const handleSubmit = () => {
     const sData = covidSummary.Countries.filter(e => {
@@ -60,12 +63,22 @@
 
     searchQuery = "";
   };
+  const detectMob = () => {
+    return window.innerWidth <= 800 && window.innerHeight <= 600;
+  };
 
   const handleTagClick = i => {
     const curState = stateAll[i];
     stateName = curState[0];
     stateWiseData = curState;
+    if (detectMob) {
+      window.scrollTo(window.pageYOffset + 500, window.pageYOffset + 500);
+    }
   };
+
+  // const handleCountryClick = c => {
+  //   countryName = c.Country;
+  // };
 </script>
 
 <style>
@@ -144,6 +157,7 @@
   }
   .search-data {
     margin-top: 15px;
+    margin-bottom: 20px;
   }
   .in-reg {
     margin-top: 20px;
@@ -180,6 +194,7 @@
     color: white;
     background: rgb(31, 30, 30);
     padding: 8px;
+    font-size: 0.9em;
     margin-right: 5px;
     margin-top: 5px;
     border-radius: 8px;
@@ -306,6 +321,8 @@
     {/if}
 
   </div>
+  <h2 class="ml-1 mb-d">In {countryName}</h2>
+  <Graphs country={countryName} />
   <div class="main-cont">
     <div class="tags">
       {#if stateWiseData}

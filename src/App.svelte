@@ -26,10 +26,12 @@
       regionName: res.data.region,
       country: res.data.country_name
     };
-    console.log("A", stateAll);
-    console.log("B", locationData);
-    console.log("C", covidSummary);
-    console.log("D", stateStat);
+    // console.log("A", stateAll);
+    // console.log("B", locationData);
+    // console.log("C", covidSummary);
+    // console.log("D", stateStat);
+
+    window.scrollTo(0, 0);
   });
 </script>
 
