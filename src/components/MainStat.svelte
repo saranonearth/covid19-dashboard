@@ -205,8 +205,12 @@
     opacity: 0.9;
   }
   @media (max-width: 640px) {
+    .tag {
+      font-size: 0.7em;
+      padding: 8px;
+    }
     .search {
-      width: 260px;
+      width: 265px;
       margin-left: -5px;
     }
     .card {
@@ -321,7 +325,7 @@
     {/if}
 
   </div>
-  <h2 class="ml-1 mb-d">In {countryName}</h2>
+  <h2 class="ml-1 mb-d">In your country</h2>
   <Graphs country={countryName} />
   <div class="main-cont">
     <div class="tags">

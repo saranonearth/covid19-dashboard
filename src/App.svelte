@@ -76,9 +76,6 @@
     border-right-color: #888;
     border-radius: 22px;
     -webkit-animation: rotate 1s infinite linear;
-    position: absolute;
-    left: 50%;
-    top: 50%;
   }
   a {
     color: rgb(68, 68, 68);
@@ -123,7 +120,9 @@
 
       </div>
     {:else}
-      <div class="loading" />
+      <center>
+        <div class="loading" />
+      </center>
     {/if}
 
   </div>
