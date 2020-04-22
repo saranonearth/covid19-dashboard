@@ -17,12 +17,12 @@
     );
     news = res.data.news;
     console.log("NEWS", res.data.news);
-    showNews = news.slice(1, 4);
+    showNews = news.slice(4, 7);
   });
 
   const handleMore = () => {
     if (showMore) {
-      showNews = news.slice(1, 4);
+      showNews = news.slice(4, 7);
     } else showNews = news;
 
     showMore = !showMore;
