@@ -204,6 +204,14 @@
     cursor: pointer;
     opacity: 0.9;
   }
+  .bo {
+    width: 60%;
+    font-size: 0.8em;
+  }
+  .so {
+    width: 15%;
+    font-size: 0.8em;
+  }
   @media (max-width: 640px) {
     .tag {
       font-size: 0.7em;
@@ -348,7 +356,13 @@
             <p class="textb">District</p>
           </div>
           <div class="so m">
-            <p class="textb">Confirmed Cases</p>
+            <p class="textb">CNF</p>
+          </div>
+          <div class="so m">
+            <p class="textb">DEC</p>
+          </div>
+          <div class="so m">
+            <p class="textb">REC</p>
           </div>
         </div>
       </div>
@@ -362,6 +376,13 @@
               <div class="so m">
                 <p>{a[1].confirmed}</p>
               </div>
+              <div class="so m">
+                <p>{a[1].deceased}</p>
+              </div>
+              <div class="so m">
+                <p>{a[1].recovered}</p>
+              </div>
+
             </div>
           </div>
         {/each}

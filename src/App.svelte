@@ -106,7 +106,7 @@
 
     {#if locationData && covidSummary && stateStat && stateAll}
       <MainStat {locationData} {covidSummary} {stateStat} {stateAll} />
-      <News {locationData} />
+      <!-- <News {locationData} /> -->
       <div class="footer">
         <div>
 

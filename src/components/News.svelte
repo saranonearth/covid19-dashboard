@@ -16,7 +16,7 @@
       }
     );
     news = res.data.news;
-    console.log("NEWS", res.data.news);
+    // console.log("NEWS", res.data.news);
     showNews = news.slice(4, 7);
   });
 
@@ -73,11 +73,14 @@
   }
 
   @media (max-width: 640px) {
+    .card {
+      font-size: 0.8em;
+    }
     .mb-c {
       width: 280px;
     }
     .news-img {
-      width: 280px;
+      width: 200px;
       height: auto;
       border-radius: 3px;
     }
